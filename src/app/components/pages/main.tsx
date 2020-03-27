@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react';
-import * as _ from 'lodash';
 import { Layout, Menu } from 'antd';
 
 import { OChart } from '../organisms/chart';
+import { ODashboard } from '../organisms/dashboard';
+import { zip } from '../../utils';
 
 import dataClosed from '../../../data/closed.json';
 import dataSuspensed from '../../../data/suspended.json';
@@ -11,22 +12,8 @@ import dataReopened from '../../../data/reopened.json';
 
 const { Header, Content, Sider } = Layout;
 
-type SelectedItem = |
-  'closed' |
-  'suspended' |
-  'closed-suspended' |
-  'opened' |
-  'reopened' |
-  'opened-reopened';
-
-interface DataRow {
-  name: string
-  '2019': number
-  '2020': number | null
-}
-
 const MainPage: FC = () => {
-  const [selectedItem, setSelectedItem] = useState<SelectedItem>('closed')
+  const [selectedItem, setSelectedItem] = useState<SelectedItem | 'dashboard'>('dashboard')
 
   const titles = {
     closed: 'Liczba zakończonych działalności gospodarczych 2020 vs. 2019',
@@ -35,19 +22,9 @@ const MainPage: FC = () => {
     reopened: 'Liczba wznowionych działalności gospodarczych 2020 vs. 2019',
     "closed-suspended": 'Liczba zakończonych i zawieszonych działalności gospodarczych 2020 vs. 2019',
     "opened-reopened": 'Liczba założonych i wznowionych działalności gospodarczych 2020 vs. 2019',
-
   }
 
   const getData = (selectedItem: SelectedItem) => {
-    const zip = (setA: DataRow[], setB: DataRow[]) =>
-      _.zipWith(setA, setB, (elementA, elementB) => ({
-      name: elementA.name,
-      '2019': elementA['2019'] + elementB['2019'],
-      '2020': elementA['2020'] && elementB['2020']
-        ? elementA['2020'] + elementB['2020']
-        : (elementA['2020'] || elementB['2020'])
-      }));
-
     if (selectedItem === 'closed') return dataClosed;
     else if (selectedItem === 'suspended') return dataSuspensed;
     else if (selectedItem === 'closed-suspended') return zip(dataClosed, dataSuspensed);
@@ -80,6 +57,7 @@ const MainPage: FC = () => {
             style={{ height: '100%' }}
             onSelect={({ key }) => setSelectedItem(key as SelectedItem)}
           >
+            <Menu.Item key="dashboard">Dashboard</Menu.Item>
             <Menu.Item key="closed">Zakończone</Menu.Item>
             <Menu.Item key="suspended">Zawieszone</Menu.Item>
             <Menu.Item key="opened">Założone</Menu.Item>
@@ -88,11 +66,11 @@ const MainPage: FC = () => {
             <Menu.Item key="opened-reopened">Założone & Wznowione</Menu.Item>
           </Menu>
         </Sider>
-        <Content style={{ background: '#fff', minHeight: 680, padding: 20 }}>
-          <OChart
-            data={getData(selectedItem)}
-            title={titles[selectedItem]}
-          />
+        <Content style={{ minHeight: 680, padding: 20 }}>
+          { selectedItem === 'dashboard'
+            ? <ODashboard />
+            : <OChart data={getData(selectedItem)} title={titles[selectedItem]}/>
+          }
         </Content>
       </Layout>
     </Content>

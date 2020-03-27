@@ -1,22 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Typography, Table, Row, Col } from 'antd';
+import { Table, Row, Col, Card } from 'antd';
 import * as _ from 'lodash';
 
 import { LineChart, XAxis, Tooltip, CartesianGrid, Line, YAxis, Legend } from 'recharts';
 
-const { Title } = Typography;
+import { CHART_COLORS } from '../../constants'
 
 interface Props {
-  data: Array<any>
+  data: DataRow[]
   title: string
 }
 
 const BREAKPOINT = 992;
 
-const OChart: FC<Props> = ({
-  data,
-  title
-}) => {
+const OChart: FC<Props> = ({ data, title }) => {
 
   const getCurrentSize = (): [number, number] => ([
     window.innerWidth > BREAKPOINT ? window.innerWidth * 0.7 : window.innerWidth * 0.9,
@@ -29,9 +26,8 @@ const OChart: FC<Props> = ({
   })
 
   return (
-    <>
-      <Title level={2}>{title}</Title>
-      <Row>
+    <Card title={title}>
+      <Row gutter={[0, 32]}>
         <Col span={24}>
           <LineChart
             width={size[0]}
@@ -44,13 +40,13 @@ const OChart: FC<Props> = ({
             <YAxis type="number" />
             <Legend />
             <Tooltip />
-            <Line type="monotone" dataKey="2019" stroke="#8884d8" yAxisId={0} />
-            <Line type="monotone" dataKey="2020" stroke="#82ca9d" yAxisId={0} />
+            <Line type="monotone" dataKey="2019" stroke={CHART_COLORS[0]} yAxisId={0} />
+            <Line type="monotone" dataKey="2020" stroke={CHART_COLORS[1]} yAxisId={0} />
           </LineChart>
         </Col>
       </Row>
 
-      <Row>
+      <Row justify="center" gutter={[0, 32]}>
         <Col xs={24} lg={12}>
           <Table
             dataSource={data}
@@ -71,7 +67,7 @@ const OChart: FC<Props> = ({
           />
         </Col>
       </Row>
-    </>
+    </Card>
   );
 }
 
