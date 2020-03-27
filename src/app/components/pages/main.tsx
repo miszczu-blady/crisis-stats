@@ -44,7 +44,11 @@ const MainPage: FC = () => {
     </Header>
     <Content>
       <Layout>
-        <Sider width={200}>
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          width={200}
+        >
           <Menu
             mode="inline"
             selectedKeys={[selectedItem]}
