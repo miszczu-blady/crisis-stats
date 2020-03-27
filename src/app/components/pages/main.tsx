@@ -6,30 +6,55 @@ import { OChart } from '../organisms/chart';
 
 import dataClosed from '../../../data/closed.json';
 import dataSuspensed from '../../../data/suspended.json';
+import dataOpened from '../../../data/opened.json';
+import dataReopened from '../../../data/reopened.json';
 
 const { Header, Content, Sider } = Layout;
 
-type SelectedItem = 'closed' | 'suspended' | 'together';
+type SelectedItem = |
+  'closed' |
+  'suspended' |
+  'closed-suspended' |
+  'opened' |
+  'reopened' |
+  'opened-reopened';
+
+interface DataRow {
+  name: string
+  '2019': number
+  '2020': number | null
+}
 
 const MainPage: FC = () => {
   const [selectedItem, setSelectedItem] = useState<SelectedItem>('closed')
 
   const titles = {
-    closed: 'Liczba zamkniętych działalności gospodarczych 2020 vs. 2019',
+    closed: 'Liczba zakończonych działalności gospodarczych 2020 vs. 2019',
     suspended: 'Liczba zawieszonych działalności gospodarczych 2020 vs. 2019',
-    together: 'Liczba zamkniętych i zamkniętych działalności gospodarczych 2020 vs. 2019',
+    opened: 'Liczba założonych działalności gospodarczych 2020 vs. 2019',
+    reopened: 'Liczba wznowionych działalności gospodarczych 2020 vs. 2019',
+    "closed-suspended": 'Liczba zakończonych i zawieszonych działalności gospodarczych 2020 vs. 2019',
+    "opened-reopened": 'Liczba założonych i wznowionych działalności gospodarczych 2020 vs. 2019',
+
   }
 
   const getData = (selectedItem: SelectedItem) => {
+    const zip = (setA: DataRow[], setB: DataRow[]) =>
+      _.zipWith(setA, setB, (elementA, elementB) => ({
+      name: elementA.name,
+      '2019': elementA['2019'] + elementB['2019'],
+      '2020': elementA['2020'] && elementB['2020']
+        ? elementA['2020'] + elementB['2020']
+        : (elementA['2020'] || elementB['2020'])
+      }));
+
     if (selectedItem === 'closed') return dataClosed;
     else if (selectedItem === 'suspended') return dataSuspensed;
-    else return _.zipWith(dataClosed, dataSuspensed, (closed, suspended) => ({
-      name: closed.name,
-      '2019': closed['2019'] + suspended['2019'],
-      '2020': closed['2020'] && suspended['2020']
-        ? closed['2020'] + suspended['2020']
-        : (closed['2020'] || suspended['2020']),
-  }));
+    else if (selectedItem === 'closed-suspended') return zip(dataClosed, dataSuspensed);
+    else if (selectedItem === 'opened') return dataOpened;
+    else if (selectedItem === 'reopened') return dataReopened;
+    else if (selectedItem === 'opened-reopened') return zip(dataOpened, dataReopened);
+    return []
   }
 
   return <Layout>
@@ -55,9 +80,12 @@ const MainPage: FC = () => {
             style={{ height: '100%' }}
             onSelect={({ key }) => setSelectedItem(key as SelectedItem)}
           >
-            <Menu.Item key="closed">Zamknięte</Menu.Item>
+            <Menu.Item key="closed">Zakończone</Menu.Item>
             <Menu.Item key="suspended">Zawieszone</Menu.Item>
-            <Menu.Item key="together">Razem</Menu.Item>
+            <Menu.Item key="opened">Założone</Menu.Item>
+            <Menu.Item key="reopened">Wznowione</Menu.Item>
+            <Menu.Item key="closed-suspended">Zamknięte & Zawieszone</Menu.Item>
+            <Menu.Item key="opened-reopened">Założone & Wznowione</Menu.Item>
           </Menu>
         </Sider>
         <Content style={{ background: '#fff', minHeight: 680, padding: 20 }}>
