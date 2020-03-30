@@ -6,10 +6,10 @@ import * as _ from 'lodash';
 import { LineChart, XAxis, Tooltip, CartesianGrid, Line, YAxis, Legend } from 'recharts';
 
 import { ATable } from '../atoms/table';
-import dataClosed from '../../../data/closed.json';
-import dataSuspensed from '../../../data/suspended.json';
-import dataOpened from '../../../data/opened.json';
-import dataReopened from '../../../data/reopened.json';
+import dataClosed from '../../../data/ceidg/closed.json';
+import dataSuspensed from '../../../data/ceidg/suspended.json';
+import dataOpened from '../../../data/ceidg/opened.json';
+import dataReopened from '../../../data/ceidg/reopened.json';
 
 import { ARROW_COLORS, CHART_COLORS } from '../../constants'
 import { getLastDays, zip } from '../../utils'
@@ -115,7 +115,7 @@ const ODashboard: FC = () => {
     <>
       <Row gutter={[16, 16]}>
         <Col lg={12} xs={24}>
-          <Card title="Zakończone i zamknięte (ostatnie 7 dni)">
+          <Card title="Zakończone i zawieszone (ostatnie 7 dni)">
             <OStatsCell data={dataClosedSuspended} />
             <OChartCell data={dataClosedSuspended} />
             <OTableCell data={dataClosedSuspended} />
@@ -126,6 +126,16 @@ const ODashboard: FC = () => {
             <OStatsCell data={dataOpenedReopened} />
             <OChartCell data={dataOpenedReopened} />
             <OTableCell data={dataOpenedReopened} />
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={24}>
+          <Card style={{textAlign: 'right'}}>
+            Źródło:&nbsp;
+            <a href="https://prod.ceidg.gov.pl/ceidg.cms.engine/">ceidg.gov.pl</a>
+            &nbsp;|&nbsp;
+            <a href="https://dane.gov.pl">dane.gov.pl</a>
           </Card>
         </Col>
       </Row>
