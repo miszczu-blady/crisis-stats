@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Row, Col, Card, Statistic } from 'antd';
+import React, { FC, useState } from 'react';
+import { Row, Col, Card, Statistic, Select } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import * as _ from 'lodash';
 
@@ -13,6 +13,8 @@ import dataReopened from '../../../data/ceidg/reopened.json';
 
 import { ARROW_COLORS, CHART_COLORS } from '../../constants'
 import { getLastDays, zip } from '../../utils'
+
+const { Option } = Select;
 
 interface Props {
   data: DataRow[]
@@ -108,21 +110,42 @@ const OTableCell: FC<Props> = ({
 }
 
 const ODashboard: FC = () => {
-  const dataClosedSuspended = getLastDays(zip(dataClosed, dataSuspensed), 7);
-  const dataOpenedReopened = getLastDays(zip(dataOpened, dataReopened), 7);
+  const [daysClosed, setDaysClosed] = useState(7)
+  const [daysOpened, setDaysOpened] = useState(7)
+
+  const dataClosedSuspended = getLastDays(zip(dataClosed, dataSuspensed), daysClosed);
+  const dataOpenedReopened = getLastDays(zip(dataOpened, dataReopened), daysOpened);
+
+  const selectCreator = (setValueFunc: (val: number) => void) => (
+    <>
+      <span>Pokaż ostatnie&nbsp;</span>
+      <Select defaultValue="7" style={{ width: 90 }} onChange={(value: string) => setValueFunc(parseInt(value))}>
+        <Option value="3">3 dni</Option>
+        <Option value="7">7 dni</Option>
+        <Option value="14">14 dni</Option>
+        <Option value="30">30 dni</Option>
+      </Select>
+    </>
+  )
 
   return (
     <>
       <Row gutter={[16, 16]}>
         <Col lg={12} xs={24}>
-          <Card title="Zakończone i zawieszone (ostatnie 7 dni)">
+          <Card
+            title="Zakończone i zawieszone"
+            extra={selectCreator(setDaysClosed)}
+          >
             <OStatsCell data={dataClosedSuspended} />
             <OChartCell data={dataClosedSuspended} />
             <OTableCell data={dataClosedSuspended} />
           </Card>
         </Col>
         <Col lg={12} xs={24}>
-          <Card title="Założone i wznowione (ostatnie 7 dni)">
+          <Card
+            title="Założone i wznowione"
+            extra={selectCreator(setDaysOpened)}
+          >
             <OStatsCell data={dataOpenedReopened} />
             <OChartCell data={dataOpenedReopened} />
             <OTableCell data={dataOpenedReopened} />

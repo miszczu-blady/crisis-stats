@@ -40,7 +40,7 @@ const OEstateChart: FC<Props> = ({ dataPrices, dataCount, titlePrices, titleCoun
           >
             <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
             <XAxis dataKey="name" />
-            <YAxis type="number" unit="zł" domain={['dataMin - 1000', 'auto']} />
+            <YAxis type="number" unit="zł" />
             <Legend />
             <Tooltip />
             <Line name="1-pokojowe" type="monotone" dataKey="rooms_1" stroke={ESTATE_CHART_COLORS[0]} yAxisId={0} />
