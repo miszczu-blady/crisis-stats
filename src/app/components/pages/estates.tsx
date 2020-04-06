@@ -65,25 +65,25 @@ export const Estates: FC = () => {
           onSelect={({ key }) => setSelectedItem(key as SelectedEstateItem)}
           defaultOpenKeys={['wroclaw']}
         >
-          <Menu.SubMenu key="wroclaw" title="Mieszkania - Wrocław">
+          <Menu.SubMenu key="wroclaw" title="Wrocław">
             <Menu.Item key='wynajem-mieszkanie-wroclaw'>Wynajem</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-pierwotny-wroclaw'>Sprzedaż / pierwotny</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-wtorny-wroclaw'>Sprzedaż / wtórny</Menu.Item>
           </Menu.SubMenu>
 
-          <Menu.SubMenu key="warszawa" title="Mieszkania - Warszawa">
+          <Menu.SubMenu key="warszawa" title="Warszawa">
             <Menu.Item key='wynajem-mieszkanie-warszawa'>Wynajem</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-pierwotny-warszawa'>Sprzedaż / pierwotny</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-wtorny-warszawa'>Sprzedaż / wtórny</Menu.Item>
           </Menu.SubMenu>
 
-          <Menu.SubMenu key="krakow" title="Mieszkania - Kraków">
+          <Menu.SubMenu key="krakow" title="Kraków">
             <Menu.Item key='wynajem-mieszkanie-krakow'>Wynajem</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-pierwotny-krakow'>Sprzedaż / pierwotny</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-wtorny-krakow'>Sprzedaż / wtórny</Menu.Item>
           </Menu.SubMenu>
 
-          <Menu.SubMenu key="gdansk" title="Mieszkania - Gdańsk">
+          <Menu.SubMenu key="gdansk" title="Gdańsk">
             <Menu.Item key='wynajem-mieszkanie-gdansk'>Wynajem</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-pierwotny-gdansk'>Sprzedaż / pierwotny</Menu.Item>
             <Menu.Item key='sprzedaz-mieszkanie-wtorny-gdansk'>Sprzedaż / wtórny</Menu.Item>
