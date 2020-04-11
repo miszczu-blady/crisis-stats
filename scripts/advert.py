@@ -1,19 +1,21 @@
 import json
 from lxml import html
+from datetime import datetime
+
+def to_dt(s):
+    return datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
 
 class Advert:
 
-    def __init__(self, transaction, property_type, city, link, content):
-        self.city = city
-        self.property_type = property_type
-        self.transaction = transaction
+    def __init__(self, config, link, content):
+        self.config = config
 
         self.link = link
         self.content = content
         self.tree = html.fromstring(self.content)
         self.advert = self.get_advert()
-        self.created_date = self.advert.get('dateCreated')
-        self.modified_date = self.advert.get('dateModified')
+        self.created_date = to_dt(self.advert.get('dateCreated'))
+        self.modified_date = to_dt(self.advert.get('dateModified'))
         self.price = self.get_price()
         self.price_m2 = self.get_price_m2()
         self.title = self.advert.get('title')
@@ -26,9 +28,9 @@ class Advert:
     def to_dict(self):
         return {
             "advert_id": self.advert_id,
-            "city": self.city,
-            "property_type": self.property_type,
-            "transaction": self.transaction,
+            "city": self.config.city,
+            "property_type": self.config.property_type,
+            "transaction": self.config.transaction,
             "district": self.district,
             "link": self.link,
             "title": self.title,
