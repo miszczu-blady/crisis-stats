@@ -39,7 +39,7 @@ class AdvertIterator:
     links = None
 
     def __init__(self, config, days_treshold=None, skip_if_advert_exists=False,
-        get_advert_func=None, page_from=None, page_to=None):
+                 get_advert_func=None, page_from=None, page_to=None):
 
         self.config = config
         self.page_iterator = PageIterator(
@@ -70,7 +70,9 @@ class AdvertIterator:
 
             next_link, advert_id = self.links.pop(0)
 
-            if self.skip_if_advert_exists and self.get_advert_func and self.get_advert_func(advert_id):
+            if self.skip_if_advert_exists and \
+                    self.get_advert_func and \
+                    self.get_advert_func(advert_id):
                 next_link = None
 
         return next_link

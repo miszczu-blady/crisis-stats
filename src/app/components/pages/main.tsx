@@ -26,8 +26,8 @@ const MainPage: FC<any> = ({ location }) => {
           <Menu.Item key="/ceidg">
             <Link to="/ceidg">CEIDG</Link>
           </Menu.Item>
-          <Menu.Item key="/estates">
-            <Link to="/estates">
+          <Menu.Item key="/nieruchomosci">
+            <Link to="/nieruchomosci">
               Nieruchomości
             </Link>
           </Menu.Item>
@@ -35,7 +35,7 @@ const MainPage: FC<any> = ({ location }) => {
       </Header>
       <Content>
         <Route path="/ceidg" component={Ceidg} />
-        <Route path="/estates" component={Estates} />
+        <Route path="/nieruchomosci" component={Estates} />
         <Route exact path="/" render={() => <Redirect to="/ceidg" />} />
       </Content>
     </Layout>

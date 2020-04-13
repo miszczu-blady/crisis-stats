@@ -3,33 +3,21 @@ import { Layout, Menu } from 'antd';
 
 import { OEstateChart } from '../organisms/estate-chart';
 
-import wynajemMieszkanieWroclawCeny from '../../../data/estates/wynajem-mieszkanie-wroclaw-ceny.json';
-import wynajemMieszkanieWroclawLiczba from '../../../data/estates/wynajem-mieszkanie-wroclaw-liczba.json';
-import sprzedazMieszkaniePierwotnyWroclawCeny from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-wroclaw-ceny.json';
-import sprzedazMieszkaniePierwotnyWroclawLiczba from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-wroclaw-liczba.json';
-import sprzedazMieszkanieWtornyWroclawCeny from '../../../data/estates/sprzedaz-mieszkanie-wtorny-wroclaw-ceny.json';
-import sprzedazMieszkanieWtornyWroclawLiczba from '../../../data/estates/sprzedaz-mieszkanie-wtorny-wroclaw-liczba.json';
+import wynajemMieszkanieWroclaw from '../../../data/estates/wynajem-mieszkanie-wroclaw.json';
+import sprzedazMieszkaniePierwotnyWroclaw from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-wroclaw.json';
+import sprzedazMieszkanieWtornyWroclaw from '../../../data/estates/sprzedaz-mieszkanie-wtorny-wroclaw.json';
 
-import wynajemMieszkanieWarszawaCeny from '../../../data/estates/wynajem-mieszkanie-warszawa-ceny.json';
-import wynajemMieszkanieWarszawaLiczba from '../../../data/estates/wynajem-mieszkanie-warszawa-liczba.json';
-import sprzedazMieszkaniePierwotnyWarszawaCeny from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-warszawa-ceny.json';
-import sprzedazMieszkaniePierwotnyWarszawaLiczba from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-warszawa-liczba.json';
-import sprzedazMieszkanieWtornyWarszawaCeny from '../../../data/estates/sprzedaz-mieszkanie-wtorny-warszawa-ceny.json';
-import sprzedazMieszkanieWtornyWarszawaLiczba from '../../../data/estates/sprzedaz-mieszkanie-wtorny-warszawa-liczba.json';
+import wynajemMieszkanieWarszawa from '../../../data/estates/wynajem-mieszkanie-warszawa.json';
+import sprzedazMieszkaniePierwotnyWarszawa from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-warszawa.json';
+import sprzedazMieszkanieWtornyWarszawa from '../../../data/estates/sprzedaz-mieszkanie-wtorny-warszawa.json';
 
-import wynajemMieszkanieKrakowCeny from '../../../data/estates/wynajem-mieszkanie-krakow-ceny.json';
-import wynajemMieszkanieKrakowLiczba from '../../../data/estates/wynajem-mieszkanie-krakow-liczba.json';
-import sprzedazMieszkaniePierwotnyKrakowCeny from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-krakow-ceny.json';
-import sprzedazMieszkaniePierwotnyKrakowLiczba from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-krakow-liczba.json';
-import sprzedazMieszkanieWtornyKrakowCeny from '../../../data/estates/sprzedaz-mieszkanie-wtorny-krakow-ceny.json';
-import sprzedazMieszkanieWtornyKrakowLiczba from '../../../data/estates/sprzedaz-mieszkanie-wtorny-krakow-liczba.json';
+import wynajemMieszkanieKrakow from '../../../data/estates/wynajem-mieszkanie-krakow.json';
+import sprzedazMieszkaniePierwotnyKrakow from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-krakow.json';
+import sprzedazMieszkanieWtornyKrakow from '../../../data/estates/sprzedaz-mieszkanie-wtorny-krakow.json';
 
-import wynajemMieszkanieGdanskCeny from '../../../data/estates/wynajem-mieszkanie-gdansk-ceny.json';
-import wynajemMieszkanieGdanskLiczba from '../../../data/estates/wynajem-mieszkanie-gdansk-liczba.json';
-import sprzedazMieszkaniePierwotnyGdanskCeny from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-gdansk-ceny.json';
-import sprzedazMieszkaniePierwotnyGdanskLiczba from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-gdansk-liczba.json';
-import sprzedazMieszkanieWtornyGdanskCeny from '../../../data/estates/sprzedaz-mieszkanie-wtorny-gdansk-ceny.json';
-import sprzedazMieszkanieWtornyGdanskLiczba from '../../../data/estates/sprzedaz-mieszkanie-wtorny-gdansk-liczba.json';
+import wynajemMieszkanieGdansk from '../../../data/estates/wynajem-mieszkanie-gdansk.json';
+import sprzedazMieszkaniePierwotnyGdansk from '../../../data/estates/sprzedaz-mieszkanie-pierwotny-gdansk.json';
+import sprzedazMieszkanieWtornyGdansk from '../../../data/estates/sprzedaz-mieszkanie-wtorny-gdansk.json';
 
 const { Content, Sider } = Layout;
 
@@ -94,109 +82,85 @@ export const Estates: FC = () => {
 
         { selectedItem === 'wynajem-mieszkanie-wroclaw' && (
           <OEstateChart
-            dataPrices={wynajemMieszkanieWroclawCeny}
-            dataCount={wynajemMieszkanieWroclawLiczba}
-            titlePrices='Wrocław - Wynajem mieszkań - Cena'
-            titleCount='Wrocław - Wynajem mieszkań - Liczba ogłoszeń'
+            data={wynajemMieszkanieWroclaw}
+            title='Wrocław - Wynajem mieszkań'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-pierwotny-wroclaw' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkaniePierwotnyWroclawCeny}
-            titlePrices='Wrocław - Sprzedaż mieszkań (pierwotny) - Cena za mkw'
-            dataCount={sprzedazMieszkaniePierwotnyWroclawLiczba}
-            titleCount='Wrocław - Sprzedaż mieszkań (pierwotny) - Liczba ogłoszeń'
+            data={sprzedazMieszkaniePierwotnyWroclaw}
+            title='Wrocław - Sprzedaż mieszkań (pierwotny)'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-wtorny-wroclaw' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkanieWtornyWroclawCeny}
-            dataCount={sprzedazMieszkanieWtornyWroclawLiczba}
-            titlePrices='Wrocław - Sprzedaż mieszkań (wtorny) - Ceny za mkw'
-            titleCount='Wrocław - Sprzedaż mieszkań (wtorny) - Liczba ogłoszeń'
+            data={sprzedazMieszkanieWtornyWroclaw}
+            title='Wrocław - Sprzedaż mieszkań (wtorny)'
           />
         )}
 
         { selectedItem === 'wynajem-mieszkanie-warszawa' && (
           <OEstateChart
-            dataPrices={wynajemMieszkanieWarszawaCeny}
-            dataCount={wynajemMieszkanieWarszawaLiczba}
-            titlePrices='Wrocław - Wynajem mieszkań - Cena'
-            titleCount='Wrocław - Wynajem mieszkań - Liczba ogłoszeń'
+            data={wynajemMieszkanieWarszawa}
+            title='Wrocław - Wynajem mieszkań - Cena'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-pierwotny-warszawa' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkaniePierwotnyWarszawaCeny}
-            titlePrices='Wrocław - Sprzedaż mieszkań (pierwotny) - Cena za mkw'
-            dataCount={sprzedazMieszkaniePierwotnyWarszawaLiczba}
-            titleCount='Wrocław - Sprzedaż mieszkań (pierwotny) - Liczba ogłoszeń'
+            data={sprzedazMieszkaniePierwotnyWarszawa}
+            title='Wrocław - Sprzedaż mieszkań (pierwotny)'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-wtorny-warszawa' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkanieWtornyWarszawaCeny}
-            dataCount={sprzedazMieszkanieWtornyWarszawaLiczba}
-            titlePrices='Wrocław - Sprzedaż mieszkań (wtorny) - Ceny za mkw'
-            titleCount='Wrocław - Sprzedaż mieszkań (wtorny) - Liczba ogłoszeń'
+            data={sprzedazMieszkanieWtornyWarszawa}
+            title='Wrocław - Sprzedaż mieszkań (wtorny)'
           />
         )}
 
         { selectedItem === 'wynajem-mieszkanie-krakow' && (
           <OEstateChart
-            dataPrices={wynajemMieszkanieKrakowCeny}
-            dataCount={wynajemMieszkanieKrakowLiczba}
-            titlePrices='Wrocław - Wynajem mieszkań - Cena'
-            titleCount='Wrocław - Wynajem mieszkań - Liczba ogłoszeń'
+            data={wynajemMieszkanieKrakow}
+            title='Wrocław - Wynajem mieszkań - Cena'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-pierwotny-krakow' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkaniePierwotnyKrakowCeny}
-            titlePrices='Wrocław - Sprzedaż mieszkań (pierwotny) - Cena za mkw'
-            dataCount={sprzedazMieszkaniePierwotnyKrakowLiczba}
-            titleCount='Wrocław - Sprzedaż mieszkań (pierwotny) - Liczba ogłoszeń'
+            data={sprzedazMieszkaniePierwotnyKrakow}
+            title='Wrocław - Sprzedaż mieszkań (pierwotny)'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-wtorny-krakow' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkanieWtornyKrakowCeny}
-            dataCount={sprzedazMieszkanieWtornyKrakowLiczba}
-            titlePrices='Wrocław - Sprzedaż mieszkań (wtorny) - Ceny za mkw'
-            titleCount='Wrocław - Sprzedaż mieszkań (wtorny) - Liczba ogłoszeń'
+            data={sprzedazMieszkanieWtornyKrakow}
+            title='Wrocław - Sprzedaż mieszkań (wtorny)'
           />
         )}
 
         { selectedItem === 'wynajem-mieszkanie-gdansk' && (
           <OEstateChart
-            dataPrices={wynajemMieszkanieGdanskCeny}
-            dataCount={wynajemMieszkanieGdanskLiczba}
-            titlePrices='Wrocław - Wynajem mieszkań - Cena'
-            titleCount='Wrocław - Wynajem mieszkań - Liczba ogłoszeń'
+            data={wynajemMieszkanieGdansk}
+            title='Wrocław - Wynajem mieszkań - Cena'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-pierwotny-gdansk' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkaniePierwotnyGdanskCeny}
-            titlePrices='Wrocław - Sprzedaż mieszkań (pierwotny) - Cena za mkw'
-            dataCount={sprzedazMieszkaniePierwotnyGdanskLiczba}
-            titleCount='Wrocław - Sprzedaż mieszkań (pierwotny) - Liczba ogłoszeń'
+            data={sprzedazMieszkaniePierwotnyGdansk}
+            title='Wrocław - Sprzedaż mieszkań (pierwotny)'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-wtorny-gdansk' && (
           <OEstateChart
-            dataPrices={sprzedazMieszkanieWtornyGdanskCeny}
-            dataCount={sprzedazMieszkanieWtornyGdanskLiczba}
-            titlePrices='Wrocław - Sprzedaż mieszkań (wtorny) - Ceny za mkw'
-            titleCount='Wrocław - Sprzedaż mieszkań (wtorny) - Liczba ogłoszeń'
+            data={sprzedazMieszkanieWtornyGdansk}
+            title='Wrocław - Sprzedaż mieszkań (wtorny)'
           />
         )}
 

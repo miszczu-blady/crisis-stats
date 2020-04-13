@@ -2,8 +2,10 @@ import json
 from lxml import html
 from datetime import datetime
 
+
 def to_dt(s):
     return datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+
 
 class Advert:
 
@@ -42,12 +44,13 @@ class Advert:
             "market": self.market,
             "created_date": self.advert.get('dateCreated'),
             "modified_date": self.advert.get('dateModified'),
+            "characteristics": self.attributes
         }
 
-    def print(self):
+    def print_me(self):
         print('[{0.advert_id}] Link: {0.link}'.format(self))
         print('- Title:', self.title)
-        print('- Size: {} m2'.format(get_size))
+        print('- Size: {} m2'.format(self.get_size()))
         print('- Price {}, per m2: {}'.format(self.price, self.price_m2))
         print('- Created at:', self.created_date, self.modified_date)
         print('- Rooms:', self.get_rooms_num())
@@ -57,7 +60,8 @@ class Advert:
 
     def get_advert(self):
         script_elem = self.tree.xpath('//script[@id="server-app-state"]')
-        return json.loads(script_elem[0].text)['initialProps']['data']['advert']
+        script_data = json.loads(script_elem[0].text)
+        return script_data['initialProps']['data']['advert']
 
     def get_characteristics(self):
         attributes = {}
