@@ -43,6 +43,4 @@ for advert_number, advert in enumerate(advert_iterator, 1):
 
     print('[{}] {}: {}'.format(key, advert_number, advert.link))
 
-print("Found: {found}\nUpdated: {updated}\nCreated: {created}".format(
-    found, updated, created
-))
+print("Found: {}\nUpdated: {}\nCreated: {}".format(found, updated, created))

@@ -5,7 +5,7 @@ from os import path
 class DataSaver:
 
     def __init__(self, file_name):
-        self.file_path = '../../src/data/estates-new/{}.json'.format(file_name)
+        self.file_path = '../../src/data/estates/{}.json'.format(file_name)
 
     def get_existing_data(self):
         data = []
