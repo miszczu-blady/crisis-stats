@@ -22,11 +22,18 @@ found = 0
 updated = 0
 created = 0
 
+
+def get_advert_func(advert_id):
+    return collection.find_one({'advert_id': advert_id})
+
+
 advert_iterator = AdvertIterator(
     scraper_config,
     days_treshold=args.days_limit,
     page_from=args.page_from,
-    page_to=args.page_to
+    page_to=args.page_to,
+    get_advert_func=get_advert_func,
+    skip_if_advert_exists=args.all,
 )
 for advert_number, advert in enumerate(advert_iterator, 1):
     result = collection.update_one(
@@ -41,6 +48,7 @@ for advert_number, advert in enumerate(advert_iterator, 1):
     else:
         updated += 1
 
-    print('[{}] {}: {}'.format(key, advert_number, advert.link))
+    print('[{}] {}: {}, {}'.format(
+        key, advert_number, advert.link, advert.modified_date))
 
 print("Found: {}\nUpdated: {}\nCreated: {}".format(found, updated, created))
