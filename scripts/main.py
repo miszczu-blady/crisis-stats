@@ -1,46 +1,60 @@
 # -*- coding: utf-8 -*-
 
 from pymongo import MongoClient
-
+import aiohttp
+import asyncio
 from scraper import ScraperConfig
-from iterators import AdvertIterator
+from async_iterators import AdvertIterator
 from argparser import args
 
-client = MongoClient('localhost', 27017)
-db = client.advert_db
-key = '{0.transaction}-{0.property_type}-{0.city}'.format(args)
-collection = db[key]
 
-scraper_config = ScraperConfig(
-    args.transaction,
-    args.property_type,
-    args.city,
-    distance=args.distance
-)
+async def main():
+    key = '{0.transaction}-{0.property_type}-{0.city}'.format(args)
 
-found = 0
-updated = 0
-created = 0
+    client = MongoClient('localhost', 27017)
+    db = client.advert_db
+    collection = db[key]
 
-advert_iterator = AdvertIterator(
-    scraper_config,
-    days_treshold=args.days_limit,
-    page_from=args.page_from,
-    page_to=args.page_to
-)
-for advert_number, advert in enumerate(advert_iterator, 1):
-    result = collection.update_one(
-        {'advert_id': advert.advert_id},
-        {'$set': advert.to_dict()},
-        True
-    )
-    if result.matched_count > 0:
-        found += 1
-    if result.upserted_id:
-        created += 1
-    else:
-        updated += 1
+    async with aiohttp.ClientSession() as session:
+        scraper_config = ScraperConfig(
+            session,
+            args.transaction,
+            args.property_type,
+            args.city,
+            distance=args.distance
+        )
 
-    print('[{}] {}: {}'.format(key, advert_number, advert.link))
+        found = 0
+        updated = 0
+        created = 0
 
-print("Found: {}\nUpdated: {}\nCreated: {}".format(found, updated, created))
+        advert_iterator = AdvertIterator(
+            scraper_config,
+            days_treshold=args.days_limit,
+            page_from=args.page_from,
+            page_to=args.page_to
+        )
+        async for advert, advert_number in advert_iterator:
+
+            result = collection.update_one(
+                {'advert_id': advert.advert_id},
+                {'$set': advert.to_dict()},
+                True
+            )
+            if result.matched_count > 0:
+                found += 1
+
+            if result.upserted_id:
+                created += 1
+            else:
+                updated += 1
+
+            print('[{}] {}: {}'.format(key, advert_number, advert.link))
+
+        print("Found: {}\nUpdated: {}\nCreated: {}".format(
+            found, updated, created))
+
+
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())

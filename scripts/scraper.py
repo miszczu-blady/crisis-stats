@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import requests
 from lxml import html
 from urllib.parse import urlencode
+from utils import get_page_contents
+
 
 REGION_QUERY = {
     'gdansk': {
@@ -30,14 +31,16 @@ REGION_QUERY = {
 
 class ScraperConfig:
 
-    def __init__(self, transaction, property_type, city, distance=None):
+    def __init__(self, session, transaction, property_type, city,
+                 distance=None):
+        self.session = session
         self.transaction = transaction
         self.property_type = property_type
         self.city = city
         self.distance = distance
 
 
-class Scraper:
+class AsyncScraper:
 
     def __init__(self, config):
         self.config = config
@@ -52,29 +55,31 @@ class Scraper:
             params.update({'search[dist]': [self.config.distance]})
         return urlencode(params, doseq=True)
 
-    def get_page(self, page_number):
-        return requests.get(
-            self.url + '?' + self.get_params(page_number)
-        )
+    async def get_pages(self, page_from, page_to):
+        urls = [self.url + '?' + self.get_params(page_number)
+                for page_number in range(page_from, page_to + 1)]
 
-    def get_links_from_page(self, page):
-        tree = html.fromstring(page.content)
-        links = tree.xpath(
-            "//article[contains(@data-featured-name, 'listing_no_promo')]"
-        )
+        return await get_page_contents(self.config.session, urls)
+
+    def get_links_from_pages(self, pages):
         result = []
-        for link in links:
-            result.append([
-                link.attrib['data-url'],
-                int(link.attrib['data-tracking-id'])
-            ])
+        for page in pages:
+            tree = html.fromstring(page)
+            links = tree.xpath(
+                "//article[contains(@data-featured-name, 'listing_no_promo')]"
+            )
+
+            for link in links:
+                result.append([
+                    link.attrib['data-url'],
+                    int(link.attrib['data-tracking-id'])
+                ])
         return result
 
-    def get_pages_count(self, page):
-        tree = html.fromstring(page.content)
+    async def get_pages_count(self, page):
+        tree = html.fromstring(page)
         elements = tree.xpath(
             "//ul[contains(@class, 'pager')]/li[last() - 1]/a"
         )
         pages_count = len(elements) > 0 and elements[0].text or 0
-        print('>>>> pages_count', pages_count)
         return int(pages_count)
