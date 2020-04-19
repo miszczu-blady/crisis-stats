@@ -104,63 +104,63 @@ export const Estates: FC = () => {
         { selectedItem === 'wynajem-mieszkanie-warszawa' && (
           <OEstateChart
             data={wynajemMieszkanieWarszawa}
-            title='Wrocław - Wynajem mieszkań - Cena'
+            title='Warszawa - Wynajem mieszkań'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-pierwotny-warszawa' && (
           <OEstateChart
             data={sprzedazMieszkaniePierwotnyWarszawa}
-            title='Wrocław - Sprzedaż mieszkań (pierwotny)'
+            title='Warszawa - Sprzedaż mieszkań (pierwotny)'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-wtorny-warszawa' && (
           <OEstateChart
             data={sprzedazMieszkanieWtornyWarszawa}
-            title='Wrocław - Sprzedaż mieszkań (wtorny)'
+            title='Warszawa - Sprzedaż mieszkań (wtorny)'
           />
         )}
 
         { selectedItem === 'wynajem-mieszkanie-krakow' && (
           <OEstateChart
             data={wynajemMieszkanieKrakow}
-            title='Wrocław - Wynajem mieszkań - Cena'
+            title='Kraków - Wynajem mieszkań'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-pierwotny-krakow' && (
           <OEstateChart
             data={sprzedazMieszkaniePierwotnyKrakow}
-            title='Wrocław - Sprzedaż mieszkań (pierwotny)'
+            title='Kraków - Sprzedaż mieszkań (pierwotny)'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-wtorny-krakow' && (
           <OEstateChart
             data={sprzedazMieszkanieWtornyKrakow}
-            title='Wrocław - Sprzedaż mieszkań (wtorny)'
+            title='Kraków - Sprzedaż mieszkań (wtorny)'
           />
         )}
 
         { selectedItem === 'wynajem-mieszkanie-gdansk' && (
           <OEstateChart
             data={wynajemMieszkanieGdansk}
-            title='Wrocław - Wynajem mieszkań - Cena'
+            title='Gdańsk - Wynajem mieszkań'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-pierwotny-gdansk' && (
           <OEstateChart
             data={sprzedazMieszkaniePierwotnyGdansk}
-            title='Wrocław - Sprzedaż mieszkań (pierwotny)'
+            title='Gdańsk - Sprzedaż mieszkań (pierwotny)'
           />
         )}
 
         { selectedItem === 'sprzedaz-mieszkanie-wtorny-gdansk' && (
           <OEstateChart
             data={sprzedazMieszkanieWtornyGdansk}
-            title='Wrocław - Sprzedaż mieszkań (wtorny)'
+            title='Gdańsk - Sprzedaż mieszkań (wtorny)'
           />
         )}
 

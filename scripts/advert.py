@@ -60,6 +60,8 @@ class Advert:
 
     def get_advert(self):
         script_elem = self.tree.xpath('//script[@id="server-app-state"]')
+        if not script_elem:
+            return {}
         script_data = json.loads(script_elem[0].text)
         return script_data['initialProps']['data']['advert']
 

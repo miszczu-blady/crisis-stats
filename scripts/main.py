@@ -15,6 +15,9 @@ async def main():
     db = client.advert_db
     collection = db[key]
 
+    def get_advert_func(advert_id):
+        return collection.find_one({'advert_id': advert_id})
+
     async with aiohttp.ClientSession() as session:
         scraper_config = ScraperConfig(
             session,
@@ -32,7 +35,9 @@ async def main():
             scraper_config,
             days_treshold=args.days_limit,
             page_from=args.page_from,
-            page_to=args.page_to
+            page_to=args.page_to,
+            get_advert_func=get_advert_func,
+            skip_if_advert_exists=args.all
         )
         async for advert, advert_number in advert_iterator:
 
@@ -51,8 +56,7 @@ async def main():
 
             print('[{}] {}: {}'.format(key, advert_number, advert.link))
 
-        print("Found: {}\nUpdated: {}\nCreated: {}".format(
-            found, updated, created))
+        print(f'Found: {found}\nUpdated: {updated}\nCreated: {created}')
 
 
 if __name__ == '__main__':

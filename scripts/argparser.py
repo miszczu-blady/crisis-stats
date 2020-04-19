@@ -44,4 +44,7 @@ parser.add_argument("--page-to", type=int, help="page to")
 parser.add_argument("--days-limit", type=int, help="days limit")
 parser.add_argument("--distance", type=int, help="distace",
                     choices=[0, 5, 10, 15, 25, 50, 75])
+parser.add_argument("--all", default=False,
+                    help="go through all pages and skip existing ads",
+                    action="store_true")
 args = parser.parse_args()

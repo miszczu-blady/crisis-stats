@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 
 from report import report
 
@@ -43,20 +43,20 @@ report(
 report(
     'sprzedaz-mieszkanie-wroclaw',
     file_name='sprzedaz-mieszkanie-wtorny-wroclaw',
-    **primary_params
+    **secondary_params
 )
 report(
     'sprzedaz-mieszkanie-warszawa',
     file_name='sprzedaz-mieszkanie-wtorny-warszawa',
-    **primary_params
+    **secondary_params
 )
 report(
     'sprzedaz-mieszkanie-krakow',
     file_name='sprzedaz-mieszkanie-wtorny-krakow',
-    **primary_params
+    **secondary_params
 )
 report(
     'sprzedaz-mieszkanie-gdansk',
     file_name='sprzedaz-mieszkanie-wtorny-gdansk',
-    **primary_params
+    **secondary_params
 )
