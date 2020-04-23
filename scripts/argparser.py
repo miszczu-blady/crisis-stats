@@ -13,7 +13,8 @@ cities = [
     'wroclaw',
     'warszawa',
     'krakow',
-    'gdansk'
+    'gdansk',
+    'poznan'
 ]
 
 parser = argparse.ArgumentParser(description='otodom.pl scrapper')

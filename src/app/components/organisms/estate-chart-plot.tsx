@@ -20,69 +20,69 @@ const columns = [
     key: 'name',
   },
   {
-    title: 'Kawalerki',
+    title: '400-1000 mkw',
     children: [
       {
         title: 'Średnia cena',
-        dataIndex: ['rooms_1', 'avg_price'],
-        key: 'rooms_1-price',
+        dataIndex: ['400-1000', 'avg_price'],
+        key: '400-1000-price',
       },
       {
         title: 'Liczba ogłoszeń',
-        dataIndex: ['rooms_1', 'ads_count'],
-        key: 'rooms_1-count',
+        dataIndex: ['400-1000', 'ads_count'],
+        key: '400-1000-count',
       }
     ]
   },
   {
-    title: '2-pokojowe',
+    title: '1000-1600 mkw',
     children: [
       {
         title: 'Średnia cena',
-        dataIndex: ['rooms_2', 'avg_price'],
-        key: 'rooms_2-price',
+        dataIndex: ['1000-1600', 'avg_price'],
+        key: '1000-1600-price',
       },
       {
         title: 'Liczba ogłoszeń',
-        dataIndex: ['rooms_2', 'ads_count'],
-        key: 'rooms_2-count',
+        dataIndex: ['1000-1600', 'ads_count'],
+        key: '1000-1600-count',
       }
     ]
   },
   {
-    title: '3-pokojowe',
+    title: '1600-4000mkw',
     children: [
       {
         title: 'Średnia cena',
-        dataIndex: ['rooms_3', 'avg_price'],
-        key: 'rooms_3-price',
+        dataIndex: ['1600-4000', 'avg_price'],
+        key: '1600-4000-price',
       },
       {
         title: 'Liczba ogłoszeń',
-        dataIndex: ['rooms_3', 'ads_count'],
-        key: 'rooms_3-count',
+        dataIndex: ['1600-4000', 'ads_count'],
+        key: '1600-4000-count',
       }
     ]
   },
   {
-    title: '4-pokojowe i większe',
+    title: 'powyżej 4000mkw',
     children: [
       {
         title: 'Średnia cena',
-        dataIndex: ['rooms_4', 'avg_price'],
-        key: 'rooms_4-price',
+        dataIndex: ['4000', 'avg_price'],
+        key: '4000-price',
       },
       {
         title: 'Liczba ogłoszeń',
-        dataIndex: ['rooms_4', 'ads_count'],
-        key: 'rooms_4-count',
+        dataIndex: ['4000', 'ads_count'],
+        key: '4000-count',
       }
     ]
   }
 
 ]
 
-const OEstateChart: FC<Props> = ({ data, title }) => {
+const OEstateChartPlot: FC<Props> = ({ data, title }) => {
 
   const getCurrentSize = (): [number, number] => ([
     window.innerWidth > BREAKPOINT ? window.innerWidth * 0.7 : window.innerWidth * 0.9,
@@ -94,9 +94,11 @@ const OEstateChart: FC<Props> = ({ data, title }) => {
     window.addEventListener('resize', _.debounce(handleWindowResize, 300));
   })
 
+  console.log('OEstateChartPlot.data')
+  console.log(data)
   return (
     <>
-    <Card title={`${title} - Cena`}>
+    <Card title={`${title} - Średnia cena za mkw`}>
       <Row gutter={[0, 32]}>
         <Col span={24}>
           <LineChart
@@ -110,10 +112,10 @@ const OEstateChart: FC<Props> = ({ data, title }) => {
             <YAxis type="number" unit="zł" />
             <Legend />
             <Tooltip />
-            <Line name="1-pokojowe" type="monotone" dataKey="rooms_1.avg_price" stroke={ESTATE_CHART_COLORS[0]} yAxisId={0} />
-            <Line name="2-pokojowe" type="monotone" dataKey="rooms_2.avg_price" stroke={ESTATE_CHART_COLORS[1]} yAxisId={0} />
-            <Line name="3-pokojowe" type="monotone" dataKey="rooms_3.avg_price" stroke={ESTATE_CHART_COLORS[2]} yAxisId={0} />
-            <Line name="4-pokojowe i większe" type="monotone" dataKey="rooms_4.avg_price" stroke={ESTATE_CHART_COLORS[3]} yAxisId={0} />
+            <Line name="400-1000 mkw" type="monotone" dataKey="400-1000.avg_price" stroke={ESTATE_CHART_COLORS[0]} yAxisId={0} />
+            <Line name="1000-1600 mkw" type="monotone" dataKey="1000-1600.avg_price" stroke={ESTATE_CHART_COLORS[1]} yAxisId={0} />
+            <Line name="1600-4000 mkw" type="monotone" dataKey="1600-4000.avg_price" stroke={ESTATE_CHART_COLORS[2]} yAxisId={0} />
+            <Line name="powyżej 4000 mkw" type="monotone" dataKey="4000.avg_price" stroke={ESTATE_CHART_COLORS[3]} yAxisId={0} />
           </LineChart>
         </Col>
       </Row>
@@ -133,10 +135,10 @@ const OEstateChart: FC<Props> = ({ data, title }) => {
             <YAxis type="number" />
             <Legend />
             <Tooltip />
-            <Line name="1-pokojowe" type="monotone" dataKey="rooms_1.ads_count" stroke={ESTATE_CHART_COLORS[0]} yAxisId={0} />
-            <Line name="2-pokojowe" type="monotone" dataKey="rooms_2.ads_count" stroke={ESTATE_CHART_COLORS[1]} yAxisId={0} />
-            <Line name="3-pokojowe" type="monotone" dataKey="rooms_3.ads_count" stroke={ESTATE_CHART_COLORS[2]} yAxisId={0} />
-            <Line name="4-pokojowe i większe" type="monotone" dataKey="rooms_4.ads_count" stroke={ESTATE_CHART_COLORS[3]} yAxisId={0} />
+            <Line name="400-1000 mkw" type="monotone" dataKey="400-1000.ads_count" stroke={ESTATE_CHART_COLORS[0]} yAxisId={0} />
+            <Line name="1000-1600 mkw" type="monotone" dataKey="1000-1600.ads_count" stroke={ESTATE_CHART_COLORS[1]} yAxisId={0} />
+            <Line name="1600-4000 mkw" type="monotone" dataKey="1600-4000.ads_count" stroke={ESTATE_CHART_COLORS[2]} yAxisId={0} />
+            <Line name="powyżej 4000 mkw" type="monotone" dataKey="4000.ads_count" stroke={ESTATE_CHART_COLORS[3]} yAxisId={0} />
           </LineChart>
         </Col>
       </Row>
@@ -159,4 +161,4 @@ const OEstateChart: FC<Props> = ({ data, title }) => {
   );
 }
 
-export { OEstateChart }
+export { OEstateChartPlot }

@@ -25,6 +25,11 @@ REGION_QUERY = {
         'search[region_id]': ['1'],
         'search[subregion_id]': ['381'],
         'search[city_id]': ['39']
+    },
+    'poznan': {
+        'search[region_id]': ['15'],
+        'search[subregion_id]': ['462'],
+        'search[city_id]': ['1']
     }
 }
 

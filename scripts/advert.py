@@ -4,7 +4,12 @@ from datetime import datetime
 
 
 def to_dt(s):
-    return datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+    if s is None:
+        return datetime.now()
+    try:
+        return datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+    except TypeError:
+        return datetime.now()
 
 
 class Advert:
