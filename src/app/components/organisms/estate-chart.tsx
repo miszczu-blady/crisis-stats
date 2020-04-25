@@ -11,6 +11,15 @@ interface Props {
   title: string
 }
 
+const breakpoints = {
+  xs: 480,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1600,
+}
+
 const BREAKPOINT = 992;
 
 const columns = [
@@ -84,24 +93,43 @@ const columns = [
 
 const OEstateChart: FC<Props> = ({ data, title }) => {
 
-  const getCurrentSize = (): [number, number] => ([
-    window.innerWidth > BREAKPOINT ? window.innerWidth * 0.7 : window.innerWidth * 0.9,
-    window.innerWidth > BREAKPOINT ? window.innerWidth * 0.7 * 0.5 : window.innerWidth * 0.9 * 0.5
-  ])
-  const [size, setSize] = useState<[number, number]>(getCurrentSize())
+
+  const getIsPhone = (): boolean => window.innerWidth < breakpoints.md
+
+  const getCurrentChartSize = (): [number, number] => {
+    const width = window.innerWidth - (
+      window.innerWidth > breakpoints.lg
+        ? 290
+        : window.innerWidth >= breakpoints.md
+          ? 96
+          : 20
+    );
+    const height = width * 0.5;
+    return [width, height]
+  }
+  const [chartSize, setChartSize] = useState<[number, number]>(getCurrentChartSize())
+  const [isPhone, setIsPhone] = useState<boolean>(getIsPhone())
+
   useEffect(() => {
-    const handleWindowResize = () => setSize(getCurrentSize())
+    const handleWindowResize = () => {
+      setChartSize(getCurrentChartSize())
+      setIsPhone(getIsPhone())
+    }
     window.addEventListener('resize', _.debounce(handleWindowResize, 300));
   })
 
   return (
     <>
-    <Card title={`${title} - Cena`}>
+    <Card
+      title={`${title} - Cena`}
+      bodyStyle={{padding: isPhone ? 6 : 24}}
+      headStyle={{paddingLeft: isPhone ? 40 : 24}}
+    >
       <Row gutter={[0, 32]}>
         <Col span={24}>
           <LineChart
-            width={size[0]}
-            height={size[1]}
+            width={chartSize[0]}
+            height={chartSize[1]}
             layout="horizontal"
             data={data}
           >
@@ -119,12 +147,14 @@ const OEstateChart: FC<Props> = ({ data, title }) => {
       </Row>
     </Card>
 
-    <Card title={`${title} - Liczba ogłoszeń`}>
+    <Card title={`${title} - Liczba ogłoszeń`}
+      bodyStyle={{padding: isPhone ? 6 : 24}}
+    >
       <Row gutter={[0, 32]}>
         <Col span={24}>
           <LineChart
-            width={size[0]}
-            height={size[1]}
+            width={chartSize[0]}
+            height={chartSize[1]}
             layout="horizontal"
             data={data}
           >
@@ -142,7 +172,10 @@ const OEstateChart: FC<Props> = ({ data, title }) => {
       </Row>
     </Card>
 
-    <Card title={`${title} - Dane`}>
+    <Card
+      title={`${title} - Dane`}
+      bodyStyle={{overflowX: 'auto'}}
+    >
       <Row gutter={[0, 32]}>
         <Col span={24}>
           <Table
