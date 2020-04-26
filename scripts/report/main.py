@@ -22,7 +22,6 @@ primary_params = {
     'price_field': 'price_m2',
     'extra_query': {'market': 'primary'},
     'groups': groups,
-    'weeks': 1
 }
 secondary_params = {
     'price_field': 'price_m2',
