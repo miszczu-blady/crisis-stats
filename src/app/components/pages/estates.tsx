@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Layout, Menu } from 'antd';
+import styled from 'styled-components'
 
 import { OEstateChart } from '../organisms/estate-chart';
 import { OEstateChartPlot } from '../organisms/estate-chart-plot';
@@ -48,15 +49,13 @@ export const Estates: FC = () => {
 
   const [selectedItem, setSelectedItem] = useState<SelectedEstateItem>('wynajem-mieszkanie-wroclaw')
 
-  console.log('sprzedazDzialkaWarszawa')
-  console.log(sprzedazDzialkaWarszawa)
-
   return (
     <Layout>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
         width={200}
+        zeroWidthTriggerStyle={{top: 7}}
       >
         <Menu
           mode="inline"
@@ -94,7 +93,7 @@ export const Estates: FC = () => {
           </Menu.SubMenu>
         </Menu>
       </Sider>
-      <Content style={{ minHeight: 680, padding: 20 }}>
+      <StyledContent>
 
         { selectedItem === 'wynajem-mieszkanie-wroclaw' && (
           <OEstateChart
@@ -208,8 +207,18 @@ export const Estates: FC = () => {
             title='Gdańsk - Sprzedaż działki budowlanej (do 15 km od miasta)'
           />
         )}
-
-      </Content>
+      </StyledContent>
     </Layout>
   );
 }
+
+
+const StyledContent = styled(Content)`
+  min-height: 680;
+  padding: 0;
+  @media (min-width: 768px) {
+    & {
+      padding: 20px;
+    }
+  }
+`

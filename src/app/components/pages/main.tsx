@@ -23,9 +23,9 @@ const MainPage: FC<any> = ({ location }) => {
           mode="horizontal"
           selectedKeys={[location.pathname]}
         >
-          <Menu.Item key="/ceidg">
+          {/*<Menu.Item key="/ceidg">
             <Link to="/ceidg">CEIDG</Link>
-          </Menu.Item>
+          </Menu.Item>*/}
           <Menu.Item key="/nieruchomosci">
             <Link to="/nieruchomosci">
               Nieruchomości
@@ -36,7 +36,7 @@ const MainPage: FC<any> = ({ location }) => {
       <Content>
         <Route path="/ceidg" component={Ceidg} />
         <Route path="/nieruchomosci" component={Estates} />
-        <Route exact path="/" render={() => <Redirect to="/ceidg" />} />
+        <Route exact path="/" render={() => <Redirect to="/nieruchomosci" />} />
       </Content>
     </Layout>
   );
