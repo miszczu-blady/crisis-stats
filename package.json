@@ -18,7 +18,7 @@
     "@types/styled-components": "^5.1.0",
     "antd": "^4.0.4",
     "lodash": "^4.17.15",
-    "luxon": "^1.22.2",
+    "luxon": "^2.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.1.2",
